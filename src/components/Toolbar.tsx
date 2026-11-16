@@ -34,7 +34,7 @@ export function ViewToggle() {
               on ? 'text-primary' : 'text-[#4b4b4b] hover:text-primary',
             )}
           >
-            <Icon className="size-[13px]" />
+            <Icon className={clsx('size-[13px] overflow-visible transition-[stroke-width] duration-300', on ? 'stroke-[1.5]' : 'stroke-1')} />
             {label}
           </button>
         )
