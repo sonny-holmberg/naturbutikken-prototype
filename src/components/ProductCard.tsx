@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { useState } from 'react'
 import {
-  Aperture, Backpack, Binoculars, Camera, Eye, Heart, Link2, Microscope, Moon, ShoppingCart,
+  Aperture, Backpack, Binoculars, Camera, Eye, Heart, Link2, Microscope, Moon, ShoppingCartPlus,
   Smartphone, Sparkles, Telescope, Thermometer, ZoomIn, type LucideIcon,
 } from 'lucide-react'
 import { brandLabel, featureLabels, useLabels } from '../lib/filters'
@@ -82,12 +82,12 @@ function FavoriteButton({ p }: { p: Product }) {
       aria-label={on ? `Fjern ${p.name} fra favoritter` : `Gem ${p.name} som favorit`}
       className="absolute top-2 right-2 z-10 grid size-9 place-items-center rounded-full text-[#c9d2da] transition hover:bg-white hover:text-primary"
     >
-      <Heart className={clsx('size-5 transition', on && 'scale-110 fill-primary text-primary')} strokeWidth={1.5} />
+      <Heart className={clsx('size-5 transition', on && 'scale-110 fill-wishlist text-wishlist')} strokeWidth={1.5} />
       {ghosts.map((id) => (
         <Heart
           key={id}
           aria-hidden
-          className="animate-heart-ghost pointer-events-none absolute size-5 fill-primary text-primary"
+          className="animate-heart-ghost pointer-events-none absolute size-5 fill-wishlist text-wishlist"
           strokeWidth={1.5}
           onAnimationEnd={() => setGhosts((g) => g.filter((x) => x !== id))}
         />
@@ -126,7 +126,7 @@ function AddToCart({ p, block }: { p: Product; block?: boolean }) {
       )}
     >
       Tilføj til kurv
-      <ShoppingCart className="size-4" aria-hidden />
+      <ShoppingCartPlus className="size-4" aria-hidden />
     </button>
   )
 }
