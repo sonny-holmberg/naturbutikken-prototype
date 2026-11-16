@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { ArrowDownUp, Binoculars, Check, SlidersHorizontal, X } from 'lucide-react'
-import { useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Drawer } from 'vaul'
 import { categoryById, subcategoryById } from '../data/taxonomy'
 import { activeFilterCount, sortOptions } from '../lib/filters'
@@ -69,7 +69,7 @@ export function MobileBar({ resultCount }: { resultCount: number }) {
           </button>
         }
       >
-        <div className="bg-panel p-1">
+        <div className="px-2 pt-1 pb-2">
           <FilterSections />
         </div>
       </Sheet>
@@ -120,10 +120,46 @@ function Sheet({ title, open, onClose, action, footer, children }: {
             </Drawer.Close>
           </div>
           <Drawer.Description className="sr-only">{title}</Drawer.Description>
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">{children}</div>
-          {footer && <div className="shrink-0 border-t border-line bg-white p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">{footer}</div>}
+          <ScrollFade>{children}</ScrollFade>
+          {footer && <div className="shrink-0 bg-white px-4 pt-2 pb-[max(1rem,env(safe-area-inset-bottom))]">{footer}</div>}
         </Drawer.Content>
       </Drawer.Portal>
     </Drawer.Root>
+  )
+}
+
+/** Scroll area that fades its top/bottom edge into white only when there is more content in that direction. */
+function ScrollFade({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [fadeTop, setFadeTop] = useState(false)
+  const [fadeBottom, setFadeBottom] = useState(false)
+
+  const update = useCallback(() => {
+    const el = ref.current
+    if (!el) return
+    setFadeTop(el.scrollTop > 2)
+    setFadeBottom(el.scrollTop + el.clientHeight < el.scrollHeight - 2)
+  }, [])
+
+  // Content height changes when accordion sections open/close, so watch it too.
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    if (el.firstElementChild) ro.observe(el.firstElementChild)
+    return () => ro.disconnect()
+  }, [update])
+
+  const fade = 'pointer-events-none absolute inset-x-0 z-10 transition-opacity duration-200'
+  return (
+    <div className="relative flex min-h-0 flex-1 flex-col">
+      <div ref={ref} onScroll={update} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        <div>{children}</div>
+      </div>
+      <div aria-hidden className={clsx(fade, 'top-0 h-6 bg-linear-to-b from-white to-white/0', fadeTop ? 'opacity-100' : 'opacity-0')} />
+      <div aria-hidden className={clsx(fade, 'bottom-0 h-12 bg-linear-to-t from-white to-white/0', fadeBottom ? 'opacity-100' : 'opacity-0')} />
+    </div>
   )
 }
