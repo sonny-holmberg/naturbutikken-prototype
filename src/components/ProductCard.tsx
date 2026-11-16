@@ -149,15 +149,15 @@ export function ProductCard({ p, view }: { p: Product; view: 'grid' | 'list' }) 
           </div>
           <FavoriteButton p={p} />
         </div>
-        <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 py-2 pr-3 sm:flex-row sm:items-end sm:justify-between sm:py-6 sm:pr-6">
-          <div className="flex min-w-0 flex-col gap-3 sm:gap-8">
-            <div>
-              {title}
-              <p className="mt-1 text-xs text-muted">{specLine(p)}</p>
-            </div>
-            <Price p={p} />
+        <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 py-2 pr-3 sm:gap-8 sm:py-6 sm:pr-6">
+          <div>
+            {title}
+            <p className="mt-1 text-xs text-muted">{specLine(p)}</p>
           </div>
-          <AddToCart p={p} />
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <Price p={p} />
+            <AddToCart p={p} />
+          </div>
         </div>
       </article>
     )
