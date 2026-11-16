@@ -22,7 +22,7 @@ export function MobileBar({ resultCount }: { resultCount: number }) {
 
   return (
     <>
-      <div className="sticky top-0 z-30 -mx-4 bg-white/95 px-4 pt-2 pb-2 backdrop-blur lg:hidden">
+      <div className="sticky top-2 z-30 lg:hidden">
         <div className="grid grid-cols-2 gap-2 rounded-2xl bg-white p-2 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
           <button type="button" className={clsx(btn, 'col-span-2')} onClick={() => setOpen('kategorier')}>
             <BinocularsIcon className="size-5" />
