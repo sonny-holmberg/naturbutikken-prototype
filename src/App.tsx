@@ -30,7 +30,7 @@ export default function App() {
             <div className="mt-8 px-3">
               <CategoryNav key={state.cat ?? 'root'} />
             </div>
-            <FilterPanel key={`${state.cat}-${state.sub}`} className="mt-8" />
+            <FilterPanel key={`${state.cat}-${state.sub}`} className="sticky top-4 mt-8 max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain" />
           </aside>
 
           <div className="min-w-0">
