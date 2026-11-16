@@ -99,7 +99,7 @@ function FavoriteButton({ p }: { p: Product }) {
 function Price({ p, large }: { p: Product; large?: boolean }) {
   const discounted = p.oldPrice !== undefined && p.oldPrice > p.price
   return (
-    <div className="min-w-0">
+    <div className="min-w-0 whitespace-nowrap">
       {discounted && (
         <div className="text-xs text-muted line-through">
           <span className="sr-only">Før </span>
@@ -122,7 +122,7 @@ function AddToCart({ p, block }: { p: Product; block?: boolean }) {
       onClick={() => addToCart(p.name)}
       className={clsx(
         'inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-medium whitespace-nowrap text-white transition hover:bg-primary-dark active:scale-[0.98]',
-        block && 'w-full px-2 max-[380px]:gap-1.5 max-[380px]:text-[13px]',
+        block && 'w-full max-[380px]:gap-1.5 max-[380px]:px-2 max-[380px]:text-[13px]',
       )}
     >
       Tilføj til kurv
@@ -178,10 +178,12 @@ export function ProductCard({ p, view }: { p: Product; view: 'grid' | 'list' }) 
           <span className="@2xs:hidden">{specLine(p, 3)}</span>
           <span className="hidden @2xs:inline">{specLine(p)}</span>
         </p>
-        <div className="mt-auto flex flex-col gap-3 pt-4 @2xs:flex-row @2xs:items-end @2xs:justify-between">
+        {/* One shared breakpoint (card width) so every card switches layout together.
+            21rem fits the longest prices ("34.999,00 kr.") beside the button. */}
+        <div className="mt-auto flex flex-col gap-3 pt-4 @[21rem]:flex-row @[21rem]:items-end @[21rem]:justify-between">
           <Price p={p} />
-          <div className="@2xs:hidden"><AddToCart p={p} block /></div>
-          <div className="hidden @2xs:block"><AddToCart p={p} /></div>
+          <div className="@[21rem]:hidden"><AddToCart p={p} block /></div>
+          <div className="hidden @[21rem]:block"><AddToCart p={p} /></div>
         </div>
       </div>
     </article>
