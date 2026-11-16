@@ -80,7 +80,7 @@ function FavoriteButton({ p }: { p: Product }) {
       }}
       aria-pressed={on}
       aria-label={on ? `Fjern ${p.name} fra favoritter` : `Gem ${p.name} som favorit`}
-      className="absolute top-2 right-2 grid size-9 place-items-center rounded-full text-[#c9d2da] transition hover:bg-white hover:text-primary"
+      className="absolute top-2 right-2 z-10 grid size-9 place-items-center rounded-full text-[#c9d2da] transition hover:bg-white hover:text-primary"
     >
       <Heart className={clsx('size-5 transition', on && 'scale-110 fill-primary text-primary')} strokeWidth={1.5} />
       {ghosts.map((id) => (
@@ -142,9 +142,11 @@ export function ProductCard({ p, view }: { p: Product; view: 'grid' | 'list' }) 
   if (view === 'list') {
     return (
       <article className="flex gap-3 rounded-2xl bg-card p-1.5 sm:gap-8">
-        <div className="relative aspect-square w-32 shrink-0 overflow-hidden rounded-xl bg-card-img sm:w-52">
-          <ProductImage p={p} className="p-3" />
-          <Badges p={p} />
+        <div className="relative w-32 shrink-0 sm:w-52">
+          <div className="relative aspect-square overflow-hidden rounded-xl bg-card-img">
+            <ProductImage p={p} className="p-3" />
+            <Badges p={p} />
+          </div>
           <FavoriteButton p={p} />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 py-2 pr-3 sm:flex-row sm:items-end sm:justify-between sm:py-6 sm:pr-6">
@@ -163,9 +165,11 @@ export function ProductCard({ p, view }: { p: Product; view: 'grid' | 'list' }) 
 
   return (
     <article className="@container flex h-full flex-col rounded-2xl bg-card p-1.5">
-      <div className="relative aspect-[1.02] overflow-hidden rounded-xl bg-card-img">
-        <ProductImage p={p} className="p-6 sm:p-8" />
-        <Badges p={p} />
+      <div className="relative">
+        <div className="relative aspect-[1.02] overflow-hidden rounded-xl bg-card-img">
+          <ProductImage p={p} className="p-6 sm:p-8" />
+          <Badges p={p} />
+        </div>
         <FavoriteButton p={p} />
       </div>
       <div className="flex flex-1 flex-col px-3 pt-4 pb-3 sm:px-5 sm:pb-4">
