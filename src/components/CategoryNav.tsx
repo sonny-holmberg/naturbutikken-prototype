@@ -1,8 +1,9 @@
 import clsx from 'clsx'
-import { Binoculars, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { products } from '../data/products'
 import { categories, categoryById, subToCategory } from '../data/taxonomy'
 import { useStore } from '../lib/store'
+import { BinocularsIcon } from './icons'
 
 const countIn = (pred: (sub: string) => boolean) => products.filter((p) => pred(p.sub)).length
 
@@ -19,7 +20,7 @@ export function CategoryNav({ onNavigate }: { onNavigate?: () => void }) {
     return (
       <nav aria-label="Produktkategorier" key="root" className="animate-fade-up">
         <h2 className="flex items-center gap-2 px-1 pb-3 font-display text-[22px] font-medium">
-          <Binoculars className="size-5" strokeWidth={1.6} aria-hidden />
+          <BinocularsIcon className="size-5" />
           Produkter
         </h2>
         <ul>

@@ -1,10 +1,11 @@
 import clsx from 'clsx'
-import { ArrowDownUp, Binoculars, Check, SlidersHorizontal, X } from 'lucide-react'
+import { ArrowDownUp, Check, SlidersHorizontal, X } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Drawer } from 'vaul'
 import { categoryById, subcategoryById } from '../data/taxonomy'
 import { activeFilterCount, sortOptions } from '../lib/filters'
 import { useStore } from '../lib/store'
+import { BinocularsIcon } from './icons'
 import { CategoryNav } from './CategoryNav'
 import { FilterSections } from './FilterPanel'
 
@@ -24,7 +25,7 @@ export function MobileBar({ resultCount }: { resultCount: number }) {
       <div className="sticky top-0 z-30 -mx-4 bg-white/95 px-4 pt-2 pb-2 backdrop-blur lg:hidden">
         <div className="grid grid-cols-2 gap-2 rounded-2xl bg-white p-2 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
           <button type="button" className={clsx(btn, 'col-span-2')} onClick={() => setOpen('kategorier')}>
-            <Binoculars className="size-5" strokeWidth={1.6} aria-hidden />
+            <BinocularsIcon className="size-5" />
             Kategorier
             {where && <span className="ml-auto truncate text-sm text-primary">{where}</span>}
           </button>

@@ -1,17 +1,26 @@
 import * as Select from '@radix-ui/react-select'
 import clsx from 'clsx'
-import { ArrowDownUp, Check, ChevronDown, LayoutGrid, Rows3 } from 'lucide-react'
+import { ArrowDownUp, Check, ChevronDown } from 'lucide-react'
+import { GalleryIcon, ListIcon } from './icons'
 import { sortOptions, type SortKey } from '../lib/filters'
 import { useStore } from '../lib/store'
 
 export function ViewToggle() {
   const { state, setView } = useStore()
   const items = [
-    { value: 'grid', label: 'Galleri', Icon: LayoutGrid },
-    { value: 'list', label: 'Liste', Icon: Rows3 },
+    { value: 'grid', label: 'Galleri', Icon: GalleryIcon },
+    { value: 'list', label: 'Liste', Icon: ListIcon },
   ] as const
   return (
-    <div role="group" aria-label="Visning" className="inline-flex rounded-lg bg-panel p-0.5">
+    <div role="group" aria-label="Visning" className="relative inline-grid grid-cols-2 rounded-lg bg-panel p-0.5">
+      {/* Sliding white indicator; both buttons share one width so it can move by 100% */}
+      <span
+        aria-hidden
+        className={clsx(
+          'absolute top-0.5 bottom-0.5 left-0.5 w-[calc(50%-2px)] rounded-md bg-white shadow-sm transition-transform duration-300 ease-out motion-reduce:transition-none',
+          state.view === 'list' && 'translate-x-full',
+        )}
+      />
       {items.map(({ value, label, Icon }) => {
         const on = state.view === value
         return (
@@ -21,11 +30,11 @@ export function ViewToggle() {
             aria-pressed={on}
             onClick={() => setView(value)}
             className={clsx(
-              'flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs transition sm:text-[13px]',
-              on ? 'bg-white text-primary shadow-sm' : 'text-ink hover:text-primary',
+              'relative z-10 flex h-8 items-center justify-center gap-1.5 rounded-md px-2.5 text-xs transition-colors duration-300 sm:text-[13px]',
+              on ? 'text-primary' : 'text-[#4b4b4b] hover:text-primary',
             )}
           >
-            <Icon className="size-4" strokeWidth={1.6} aria-hidden />
+            <Icon className="size-[13px]" />
             {label}
           </button>
         )
