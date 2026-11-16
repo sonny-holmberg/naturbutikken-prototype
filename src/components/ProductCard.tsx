@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { useState } from 'react'
 import {
   Aperture, Backpack, Binoculars, Camera, Eye, Heart, Link2, Microscope, Moon, ShoppingCart,
   Smartphone, Sparkles, Telescope, Thermometer, ZoomIn, type LucideIcon,
@@ -69,15 +70,28 @@ function Badges({ p }: { p: Product }) {
 function FavoriteButton({ p }: { p: Product }) {
   const { favorites, toggleFavorite } = useStore()
   const on = favorites.has(p.id)
+  const [ghosts, setGhosts] = useState<number[]>([])
   return (
     <button
       type="button"
-      onClick={() => toggleFavorite(p.id)}
+      onClick={() => {
+        if (!on) setGhosts((g) => [...g, Date.now()])
+        toggleFavorite(p.id)
+      }}
       aria-pressed={on}
       aria-label={on ? `Fjern ${p.name} fra favoritter` : `Gem ${p.name} som favorit`}
       className="absolute top-2 right-2 grid size-9 place-items-center rounded-full text-[#c9d2da] transition hover:bg-white hover:text-primary"
     >
-      <Heart className={clsx('size-5 transition', on && 'scale-110 fill-[#e0475b] text-[#e0475b]')} strokeWidth={1.5} />
+      <Heart className={clsx('size-5 transition', on && 'scale-110 fill-primary text-primary')} strokeWidth={1.5} />
+      {ghosts.map((id) => (
+        <Heart
+          key={id}
+          aria-hidden
+          className="animate-heart-ghost pointer-events-none absolute size-5 fill-primary text-primary"
+          strokeWidth={1.5}
+          onAnimationEnd={() => setGhosts((g) => g.filter((x) => x !== id))}
+        />
+      ))}
     </button>
   )
 }
