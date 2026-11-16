@@ -72,10 +72,12 @@ export function ProductGrid({ results }: { results: Product[] }) {
             type="button"
             onClick={loadMore}
             disabled={loading}
-            className="group flex min-h-11 items-baseline gap-2 rounded-full px-5 text-ink transition hover:bg-section disabled:opacity-60"
+            className="group flex min-h-11 items-center justify-center rounded-full px-5 text-ink transition hover:bg-section disabled:opacity-60"
           >
-            <span className="font-medium group-hover:text-primary">{loading ? 'Henter produkter…' : 'Vis flere produkter'}</span>
-            <span className="text-xs text-muted">({remaining} produkter mere)</span>
+            <span className="flex items-baseline gap-2">
+              <span className="font-medium group-hover:text-primary">{loading ? 'Henter produkter…' : 'Vis flere produkter'}</span>
+              <span className="text-xs text-muted">({remaining} produkter mere)</span>
+            </span>
           </button>
         </div>
       )}
