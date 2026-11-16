@@ -1,6 +1,6 @@
 # Naturbutikken – product listing prototype
 
-Interactive prototype of the product page and filtering system from the TwentyFour design challenge.
+Interactive prototype of the product page and filtering system for an outdoor shop with focus on bird watching. The design was made for a design challenge.
 Built for usability testing of browsing, filtering, sorting and progressive loading. Not a real shop. The 74 products are mock data.
 
 **Live:** https://sonny-holmberg.github.io/naturbutikken-prototype/
