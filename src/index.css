@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+
+/* Design tokens sampled from the Figma exports */
+@theme {
+  --font-sans: 'Roboto', system-ui, sans-serif;
+  --font-display: 'Jost', 'Roboto', system-ui, sans-serif;
+
+  --color-ink: #1f1f20;
+  --color-muted: #606061;
+  --color-line: #d5d9de;
+  --color-primary: #006ba9;
+  --color-primary-dark: #005585;
+  --color-primary-soft: #e5f0f7;
+  --color-sale: #55af30;
+  --color-sale-text: #4a9e28;
+  --color-badge: #a3b9c9;
+  --color-panel: #ebf0f4;
+  --color-section: #f9f9f9;
+  --color-card: #f6f7f9;
+  --color-card-img: #fcfdfe;
+  --color-hist: #e1edf4;
+  --color-hist-active: #b9d6e8;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-white font-sans text-ink antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Remove number spinners on the from/to inputs */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-fade-up {
+  animation: fade-up 240ms ease-out both;
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #eef1f4 0px, #f7f9fa 120px, #eef1f4 240px);
+  background-size: 800px 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up, .skeleton { animation: none; }
+}
