@@ -11,7 +11,7 @@ export function Header() {
           <span className="rounded-full bg-panel px-2 py-0.5 text-[11px] text-muted">Prototype</span>
         </div>
         <div className="flex items-center gap-1">
-          <Counter label="Favoritter" n={favorites.size}><Heart className="size-5" strokeWidth={1.6} /></Counter>
+          <Counter label="Favoritter" n={favorites.size} badgeClass="bg-wishlist text-primary-dark"><Heart className="size-5" strokeWidth={1.6} /></Counter>
           <Counter label="Kurv" n={cart}><ShoppingCart className="size-5" strokeWidth={1.6} /></Counter>
         </div>
       </div>
@@ -19,12 +19,12 @@ export function Header() {
   )
 }
 
-function Counter({ label, n, children }: { label: string; n: number; children: React.ReactNode }) {
+function Counter({ label, n, badgeClass = 'bg-primary text-white', children }: { label: string; n: number; badgeClass?: string; children: React.ReactNode }) {
   return (
     <span className="relative grid size-10 place-items-center text-ink" aria-label={`${label}: ${n}`} role="img">
       {children}
       {n > 0 && (
-        <span key={n} className="animate-fade-up absolute top-0.5 right-0 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-primary px-1 text-[10px] font-medium text-white">
+        <span key={n} className={`animate-fade-up absolute top-0.5 right-0 grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10px] font-medium ${badgeClass}`}>
           {n}
         </span>
       )}
