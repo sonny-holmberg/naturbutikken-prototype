@@ -104,14 +104,15 @@ export function RangeFacet({ name, unit, placeholder, scopeValues, baseValues, v
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <NumberInput label="Fra" placeholder={placeholder[0]} value={value ? lo : undefined} onCommit={(n) => commit(n ?? min, hi)} />
-        <NumberInput label="Til" placeholder={placeholder[1]} value={value ? hi : undefined} onCommit={(n) => commit(lo, n ?? max)} />
+        <NumberInput unit={unit} label="Fra" placeholder={placeholder[0]} value={value ? lo : undefined} onCommit={(n) => commit(n ?? min, hi)} />
+        <NumberInput unit={unit} label="Til" placeholder={placeholder[1]} value={value ? hi : undefined} onCommit={(n) => commit(lo, n ?? max)} />
       </div>
     </div>
   )
 }
 
-function NumberInput({ label, placeholder, value, onCommit }: {
+function NumberInput({ unit, label, placeholder, value, onCommit }: {
+  unit: string
   label: string
   placeholder: string
   value?: number
@@ -129,6 +130,7 @@ function NumberInput({ label, placeholder, value, onCommit }: {
   return (
     <label className="block">
       <span className="mb-1 block text-sm text-muted">{label}</span>
+      <span className="relative block">
       <input
         type="number"
         inputMode="numeric"
@@ -139,6 +141,14 @@ function NumberInput({ label, placeholder, value, onCommit }: {
         onKeyDown={(e) => e.key === 'Enter' && (e.target as HTMLInputElement).blur()}
         className="h-11 w-full rounded-md border border-[#8e8e93] bg-white px-3 text-[15px] placeholder:text-[#8e8e93] focus:border-primary focus:outline-none"
       />
+      {/* Unit right after the typed number: invisible copy of the text pushes the unit into place */}
+      {text !== '' && (
+        <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[13px] text-[15px] whitespace-pre">
+          <span className="invisible">{text}</span>
+          <span className="ml-1 text-muted">{unit}</span>
+        </span>
+      )}
+      </span>
     </label>
   )
 }
