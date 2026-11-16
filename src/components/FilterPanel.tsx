@@ -38,7 +38,7 @@ export function FilterSections() {
                 <span className="flex items-center gap-2">
                   {f.label}
                   {active && f.kind !== 'range' && (
-                    <span className="grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1.5 text-[11px] font-medium text-white">
+                    <span className="inline-block h-5 min-w-5 rounded-full bg-primary px-1.5 text-center align-middle text-[11px] leading-5 font-medium text-white tabular-nums [transform:translateZ(0)]">
                       {state[f.key].length}
                     </span>
                   )}
