@@ -45,9 +45,22 @@ export function MobileBar({ resultCount }: { resultCount: number }) {
         </div>
       </div>
 
-      <Sheet title="Kategorier" open={open === 'kategorier'} onClose={() => setOpen(null)}>
-        <div className="px-4 pb-8">
-          <CategoryNav onNavigate={() => setOpen(null)} />
+      <Sheet
+        title="Kategorier"
+        open={open === 'kategorier'}
+        onClose={() => setOpen(null)}
+        footer={
+          <button
+            type="button"
+            onClick={() => setOpen(null)}
+            className="h-12 w-full rounded-full bg-primary text-[16px] font-medium text-white active:bg-primary-dark"
+          >
+            Vis valgte produkter
+          </button>
+        }
+      >
+        <div className="px-4 pb-4">
+          <CategoryNav />
         </div>
       </Sheet>
 
